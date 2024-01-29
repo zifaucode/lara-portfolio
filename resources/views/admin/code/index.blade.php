@@ -1,153 +1,137 @@
 @extends('layouts-admin.app')
 @section('title')
-Blog
+Code
 @endsection
 
 
 @section('head')
 <style>
-    [v-cloak]>* {
-        display: none;
-    }
-
-    [v-cloak]::before {
-        content: "loading...";
-    }
-
-    table tr td {
-        padding-top: 10px;
-        padding-bottom: 10px;
-    }
+    /* / */
 </style>
 
 
 @endsection
 
 @section('content')
-<div class="container-fluid" id="app" v-cloak>
-    <div class="row">
-        <div class="col-sm-12">
-            <div class="card">
-                <div class="card-header">
-                    <h5>List Source Code</h5>
-                    <br>
-                    <a href="/admin/project/create"> <button class="btn btn-sm btn-primary pull-right">Create Project</button></a>
-                </div>
-                <div class="card-body">
 
-                    <div class="dt-ext table-responsive">
-                        <table class="display" id="basic-1">
+<div id="app" v-cloak>
+
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0">List Source Code</h1>
+                </div><!-- /.col -->
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="#">Home</a></li>
+                        <li class="breadcrumb-item active">List Source Code</li>
+                    </ol>
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </div>
+
+
+    <div class="content">
+        <div class="container-fluid">
+
+            <div class="col-lg-12">
+
+
+                <div class="card card-primary card-outline">
+                    <div class="card-header">
+                        <div style="text-align: right;">
+                            <a href="code/create" class="btn btn-primary btn-sm"> <i class="fa fa-plus"></i> Create Code</a>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <table id="example2" class="table table-bordered table-hover">
                             <thead>
                                 <tr>
-
-                                    <th>Name</th>
-                                    <th>Link Download</th>
-                                    <th>Link Demo</th>
-                                    <th>Author Code</th>
-                                    <th>Jumlah Download</th>
-                                    <th>Gambar</th>
-                                    <th>Action</th>
+                                    <th>Rendering engine</th>
+                                    <th>Browser</th>
+                                    <th>Platform(s)</th>
+                                    <th>Engine version</th>
+                                    <th>CSS grade</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr style="font-size: 14px;" v-for="sc in code">
-                                    <td>@{{sc.name}}</td>
-                                    <td>@{{ sc.link_download}}</td>
-                                    <td>@{{ sc.link_demo}}</td>
-                                    <td>@{{sc.author_code}}</td>
-                                    <td>@{{sc.total_download}}</span></td>
-                                    <td><img :src="'/files/code/' + sc.image" width="100px"></td>
-                                    <td>
-                                        <ul class="nav-menus">
-                                            <li class="profile-nav onhover-dropdown p-4 me-0">
-                                                <div class="media profile-media">
-                                                    <div class="media-body">
-                                                        <button class="btn btn-sm btn-primary-gradien"><i data-feather="menu"></i></button>
-                                                    </div>
-                                                </div>
-                                                <ul class="profile-dropdown onhover-show-div">
-                                                    <div class="text-center">
-
-                                                        <a class="btn btn-sm btn-danger mb-2 me-2" @click.prevent="deleteRecord(sc.id)" href="">Delete</a>
-                                                    </div>
-
-                                                </ul>
-                                            </li>
-                                        </ul>
+                                <tr>
+                                    <td>Trident</td>
+                                    <td>Internet
+                                        Explorer 4.0
                                     </td>
+                                    <td>Win 95+</td>
+                                    <td> 4</td>
+                                    <td>X</td>
                                 </tr>
-                            </tbody>
+                                <tr>
+                                    <td>Trident</td>
+                                    <td>Internet
+                                        Explorer 5.0
+                                    </td>
+                                    <td>Win 95+</td>
+                                    <td>5</td>
+                                    <td>C</td>
+                                </tr>
+                                <tr>
+                                    <td>Trident</td>
+                                    <td>Internet
+                                        Explorer 5.5
+                                    </td>
+                                    <td>Win 95+</td>
+                                    <td>5.5</td>
+                                    <td>A</td>
+                                </tr>
+
                         </table>
                     </div>
                 </div>
             </div>
-        </div>
+            <!-- /.col-md-6 -->
 
-
+        </div><!-- /.container-fluid -->
     </div>
+
 </div>
 
 @endsection
 
+
+
+
 @section('pagescript')
-
-
 <script>
     let app = new Vue({
         el: '#app',
         data: {
-            code: JSON.parse(String.raw `{!! json_encode($code) !!}`),
+
         },
         methods: {
-            deleteRecord: function(id) {
-                Swal.fire({
-                    title: 'Are you sure?',
-                    text: "The data will be deleted",
-                    icon: 'warning',
-                    reverseButtons: true,
-                    showCancelButton: true,
-                    confirmButtonColor: '#3085d6',
-                    cancelButtonColor: '#d33',
-                    confirmButtonText: 'Delete',
-                    cancelButtonText: 'Cancel',
-                    showLoaderOnConfirm: true,
-                    preConfirm: () => {
-                        return axios.delete('/admin/code/' + id)
-                            .then(function(response) {
-                                console.log(response.data);
-                            })
-                            .catch(function(error) {
-                                console.log(error.data);
-                                Swal.fire({
-                                    icon: 'error',
-                                    title: 'Oops',
-                                    text: 'Something wrong',
-                                })
-                            });
-                    },
-                    allowOutsideClick: () => !Swal.isLoading()
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        Swal.fire({
-                            icon: 'success',
-                            title: 'Success',
-                            text: 'Data has been deleted',
-                        }).then((result) => {
-                            if (result.isConfirmed) {
-                                window.location.reload();
-                            }
-                        })
-                    }
-                })
-            },
-        },
-        filters: {
-
-            liveSubstr: function(string) {
-                return string.substring(0, 70) + '...';
-            }
 
         }
     })
+</script>
+
+
+<script>
+    $(function() {
+        $("#example1").DataTable({
+            "responsive": true,
+            "lengthChange": false,
+            "autoWidth": false,
+            "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+        }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+        $('#example2').DataTable({
+            "paging": true,
+            "lengthChange": false,
+            "searching": false,
+            "ordering": true,
+            "info": true,
+            "autoWidth": false,
+            "responsive": true,
+        });
+    });
 </script>
 @endsection

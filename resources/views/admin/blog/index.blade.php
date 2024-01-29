@@ -1,15 +1,12 @@
 @extends('layouts-admin.app')
 @section('title')
-Dashboard
+Blog
 @endsection
 
 
 @section('head')
 <style>
-    .scroll {
-        max-height: 700px;
-        overflow-y: auto;
-    }
+    /* / */
 </style>
 
 
@@ -23,12 +20,12 @@ Dashboard
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0">Buat Blog</h1>
+                    <h1 class="m-0">List Blog</h1>
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="#">Home</a></li>
-                        <li class="breadcrumb-item active">Blog</li>
+                        <li class="breadcrumb-item active">List Blog</li>
                     </ol>
                 </div><!-- /.col -->
             </div><!-- /.row -->
@@ -38,79 +35,71 @@ Dashboard
 
     <div class="content">
         <div class="container-fluid">
-            <div class="col-md-12">
-                <div class="card card-info">
-                    <div class="card-body scroll">
+
+            <div class="col-lg-12">
 
 
-
-                        <div class="col-md-12">
-
-                            <div class="card card-info">
-                                <div class="card-header">
-                                    <h3 class="card-title"></h3>
-                                </div>
-
-                                <div class="card-body">
-
-                                    <div class="form-group">
-                                        <label for="exampleInputTitle">Title</label>
-                                        <input type="text" class="form-control" id="exampleInputTitle" placeholder="Enter Title">
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label for="exampleInputTitle">Category</label>
-                                        <input type="text" class="form-control" id="exampleInputTitle" placeholder="Enter Title">
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label for="exampleInputFile">Thumbnail</label>
-                                        <div class="input-group">
-                                            <div class="custom-file">
-                                                <input type="file" class="custom-file-input" id="exampleInputFile">
-                                                <label class="custom-file-label" for="exampleInputFile">Choose file</label>
-                                            </div>
-
-                                        </div>
-                                    </div>
-
-                                </div>
-                            </div>
+                <div class="card card-primary card-outline">
+                    <div class="card-header">
+                        <div style="text-align: right;">
+                            <a href="blog/create" class="btn btn-primary btn-sm"> <i class="fa fa-plus"></i> Create Blog</a>
                         </div>
+                    </div>
+                    <div class="card-body">
+                        <table id="example2" class="table table-bordered table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Rendering engine</th>
+                                    <th>Browser</th>
+                                    <th>Platform(s)</th>
+                                    <th>Engine version</th>
+                                    <th>CSS grade</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Trident</td>
+                                    <td>Internet
+                                        Explorer 4.0
+                                    </td>
+                                    <td>Win 95+</td>
+                                    <td> 4</td>
+                                    <td>X</td>
+                                </tr>
+                                <tr>
+                                    <td>Trident</td>
+                                    <td>Internet
+                                        Explorer 5.0
+                                    </td>
+                                    <td>Win 95+</td>
+                                    <td>5</td>
+                                    <td>C</td>
+                                </tr>
+                                <tr>
+                                    <td>Trident</td>
+                                    <td>Internet
+                                        Explorer 5.5
+                                    </td>
+                                    <td>Win 95+</td>
+                                    <td>5.5</td>
+                                    <td>A</td>
+                                </tr>
 
-
-
-
-
-                        <div class="col-md-12">
-                            <div class="card card-outline card-info">
-                                <div class="card-header">
-                                    <h3 class="card-title">
-                                        Body Blog
-                                    </h3>
-                                </div>
-
-                                <div class="card-body">
-                                    <textarea id="summernote"> Place <em>some</em> <u>text</u> <strong>here</strong></textarea>
-                                </div>
-                                <div class="card-footer">
-
-                                </div>
-                            </div>
-                        </div>
-
+                        </table>
                     </div>
                 </div>
             </div>
+            <!-- /.col-md-6 -->
 
-        </div>
+        </div><!-- /.container-fluid -->
     </div>
 
 </div>
 
 @endsection
 
-@section('pagescript')
+
+
 
 @section('pagescript')
 <script>
@@ -125,16 +114,24 @@ Dashboard
     })
 </script>
 
+
 <script>
     $(function() {
-        // Summernote
-        $('#summernote').summernote()
-
-        // CodeMirror
-        CodeMirror.fromTextArea(document.getElementById("codeMirrorDemo"), {
-            mode: "htmlmixed",
-            theme: "monokai"
+        $("#example1").DataTable({
+            "responsive": true,
+            "lengthChange": false,
+            "autoWidth": false,
+            "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+        }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+        $('#example2').DataTable({
+            "paging": true,
+            "lengthChange": false,
+            "searching": false,
+            "ordering": true,
+            "info": true,
+            "autoWidth": false,
+            "responsive": true,
         });
-    })
+    });
 </script>
 @endsection

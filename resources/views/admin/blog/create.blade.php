@@ -1,168 +1,140 @@
 @extends('layouts-admin.app')
 @section('title')
-Blog Create
+Create Blog
 @endsection
 
 
 @section('head')
 <style>
-    [v-cloak]>* {
-        display: none;
-    }
-
-    [v-cloak]::before {
-        content: "loading...";
-    }
-
-    table tr td {
-        padding-top: 10px;
-        padding-bottom: 10px;
+    .scroll {
+        max-height: 700px;
+        overflow-y: auto;
     }
 </style>
-
 
 
 @endsection
 
 @section('content')
 
-<div class="row" id="app">
-    <div class="col-sm-12">
-        <div class="card">
-            <div class="card-header">
-                <h5>Create Blog</h5>
-            </div>
-            <div class="card-body add-post">
-                <form @submit.prevent="sendData" enctype="multipart/form-data">
-                    @csrf
-                    <div class="col-sm-12">
-                        <div class="mb-2">
-                            <label for="validationCustom01">Title:</label>
-                            <input v-model="title" class="form-control" id="validationCustom01" type="text" placeholder="Post Title" required="">
-                            <div class="valid-feedback">Looks good!</div>
-                        </div>
+<div id="app" v-cloak>
 
-                        <div class="col-sm-12">
-                            <label class="form-label" for="validationCustom04">Category</label>
-                            <select class="form-select" id="validationCustom04" required="" v-model="category_id">
-                                <option selected="" disabled="" value="">Choose Category</option>
-                                <option v-for="cat in category" :value="cat.id">@{{ cat.name }}</option>
-                            </select>
-                            <div class="invalid-feedback">Please select a valid state.</div>
-                        </div>
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0">Create Blog</h1>
+                </div><!-- /.col -->
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="#">Home</a></li>
+                        <li class="breadcrumb-item active">Blog</li>
+                    </ol>
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </div>
 
 
-                        <br>
-                        <div class="row">
-                            <div class="col-sm-12">
-                                <div class="card">
-                                    <div class="card-header">
-                                        <h5>Content</h5>
+    <div class="content">
+        <div class="container-fluid">
+            <div class="col-md-12">
+                <div class="card card-info">
+                    <div class="card-body scroll">
+
+
+
+                        <div class="col-md-12">
+
+                            <div class="card card-info">
+                                <div class="card-header">
+                                    <h3 class="card-title"></h3>
+                                </div>
+
+                                <div class="card-body">
+
+                                    <div class="form-group">
+                                        <label for="exampleInputTitle">Title</label>
+                                        <input type="text" class="form-control" id="exampleInputTitle" placeholder="Enter Title">
                                     </div>
-                                    <div class="card-body">
-                                        <textarea class="form-control" v-model="content" id="exampleFormControlTextarea4" rows="5" placeholder="Content" required></textarea>
 
+                                    <div class="form-group">
+                                        <label for="exampleInputTitle">Category</label>
+                                        <input type="text" class="form-control" id="exampleInputTitle" placeholder="Enter Title">
                                     </div>
+
+                                    <div class="form-group">
+                                        <label for="exampleInputFile">Thumbnail</label>
+                                        <div class="input-group">
+                                            <div class="custom-file">
+                                                <input type="file" class="custom-file-input" id="exampleInputFile">
+                                                <label class="custom-file-label" for="exampleInputFile">Choose file</label>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
                                 </div>
                             </div>
                         </div>
-                        <br>
-                        <div class="row">
-                            <div class="col-12">
-                                <div class="alert alert-primary">
-                                    <div class="d-flex flex-column">
-                                        <small> File Gambar (.jpeg/png/jpg)</small>
-                                        <br>
-                                        <input type="file" ref="image" class="custom-file-input" accept=".jpeg, .png, .jpg" v-on:change="handleFotoUpload">
-                                    </div>
-                                    @error('image')
-                                    <div class="alert alert-danger mb-4">{{ $message }}</div>
-                                    @enderror
+
+
+
+
+
+                        <div class="col-md-12">
+                            <div class="card card-outline card-info">
+                                <div class="card-header">
+                                    <h3 class="card-title">
+                                        Body Blog
+                                    </h3>
+                                </div>
+
+                                <div class="card-body">
+                                    <textarea id="summernote"> Place <em>some</em> <u>text</u> <strong>here</strong></textarea>
+                                </div>
+                                <div class="card-footer">
+
                                 </div>
                             </div>
                         </div>
-                        <br><br>
 
-                        <div class="btn-showcase text-end">
-                            <button class="btn btn-primary" type="submit">Post</button>
-
-                        </div>
                     </div>
-                </form>
-
+                </div>
             </div>
+
         </div>
     </div>
+
 </div>
-
-
 
 @endsection
 
 @section('pagescript')
 
+@section('pagescript')
 <script>
     let app = new Vue({
         el: '#app',
         data: {
-            title: '',
-            user_id: '1',
-            category_id: '',
-            content: '',
-            image: '',
-            status_id: '3',
-            loading: false,
-            category: JSON.parse(String.raw `{!! json_encode($category) !!}`),
+
         },
         methods: {
-            handleFotoUpload: function() {
-                this.image = this.$refs.image.files[0];
-                console.log(this.image['name']);
-            },
-            sendData: function() {
-                let vm = this;
-
-                let data = {
-                    image: vm.image,
-                    title: this.title,
-                    content: this.content,
-                    user_id: this.user_id,
-                    category_id: this.category_id,
-                    status_id: this.status_id,
-                    image_name: this.image['name']
-
-                }
-
-                let formData = new FormData();
-                for (var key in data) {
-                    formData.append(key, data[key]);
-                }
-                axios.post('/admin/blog/', formData)
-                    .then(function(response) {
-                        vm.loading = false;
-                        Swal.fire({
-                            title: 'Berhasil',
-                            text: 'Blog  berhasil disimpan.',
-                            icon: 'success',
-                            allowOutsideClick: false,
-                        }).then((result) => {
-                            if (result.isConfirmed) {
-                                window.location.href = '/admin/blog';
-                            }
-                        })
-                        // console.log(response);
-                    })
-                    .catch(err => {
-                        console.log('error', err.response.data)
-                        Swal.fire({
-                            title: 'Error',
-                            text: `${err.response.data.errors['image']}`,
-                            icon: 'error',
-                        })
-                    })
-            },
 
         }
+    })
+</script>
+
+<script>
+    $(function() {
+        // Summernote
+        $('#summernote').summernote()
+
+        // CodeMirror
+        CodeMirror.fromTextArea(document.getElementById("codeMirrorDemo"), {
+            mode: "htmlmixed",
+            theme: "monokai"
+        });
     })
 </script>
 @endsection

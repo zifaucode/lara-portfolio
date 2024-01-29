@@ -34,23 +34,49 @@
         <nav class="mt-2">
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                 <li class="nav-item">
-                    <a href="#" class="nav-link">
+                    <a href="/admin/blog" class="nav-link">
                         <i class="nav-icon fas fa-edit"></i>
                         <p>
                             Blog
                         </p>
                     </a>
                 </li>
-
                 <li class="nav-item">
-                    <a href="#" class="nav-link">
-                        <i class="nav-icon fas fa-th"></i>
+                    <a href="/admin/code" class="nav-link">
+                        <i class="nav-icon fa fa-code"></i>
                         <p>
-                            Simple Link
-                            <span class="right badge badge-danger">New</span>
+                            Source Code
                         </p>
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a href="/admin/project" class="nav-link">
+                        <i class="nav-icon fa fa-cubes"></i>
+                        <p>
+                            Project
+                        </p>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="/admin/about" class="nav-link">
+                        <i class="nav-icon fa fa-address-card"></i>
+                        <p>
+                            About Me
+                        </p>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="/admin/setting" class="nav-link">
+                        <i class="nav-icon fa fa-cogs"></i>
+                        <p>
+                            Setting
+                        </p>
+                    </a>
+                </li>
+
+
 
                 <li class="nav-item">
                     <a href="https://adminlte.io/docs/3.1/" class="nav-link">
