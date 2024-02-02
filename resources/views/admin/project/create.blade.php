@@ -27,96 +27,89 @@ Project Create
 
 @section('content')
 <div id="app" v-cloak>
-    <div class="row">
-        <div class="col-sm-12">
-            <div class="card">
-                <div class="card-header">
-                    <h5>Create Project</h5>
+
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0">Create Project</h1>
                 </div>
-                <div class="card-body add-post">
-                    <form @submit.prevent="sendData" enctype="multipart/form-data">
-                        <div class="col-sm-12">
-                            <div class="mb-2">
-                                <label for="validationCustom01">Project Name:</label>
-                                <input v-model="name" class="form-control" id="validationCustom01" type="text" placeholder="Project Name" required="">
-                                <div class="valid-feedback">Looks good!</div>
-                            </div>
-                            <br>
-
-                            <div class="col-sm-12">
-                                <label class="form-label" for="validationCustom04">Category</label>
-                                <select class="form-select" id="validationCustom04" required="" v-model="category_id">
-                                    <option value="1">FREE</option>
-                                    <option value="2">BERBAYAR</option>
-                                </select>
-                                <div class="invalid-feedback">Please select a valid Category.</div>
-                            </div>
-                            <br>
-                            <div class="mb-2" v-if="category_id == 2">
-                                <label for="validationCustom01">Budged Project:</label>
-                                <input v-model="budged" class="form-control" id="validationCustom01" type="text" placeholder="Budget Project" required="">
-
-                            </div>
-
-                            <br>
-                            <div class="col-sm-12" v-if="category_id == 2">
-                                <label class="form-label" for="validationCustom04">Request Pengerjaan</label>
-                                <select class="form-select" id="validationCustom04" required="" v-model="req_time">
-                                    <option value="7 hari">7 hari</option>
-                                    <option value="14 hari">14 hari</option>
-                                    <option value="1 Bulan">1 Bulan</option>
-                                    <option value="> 1 Bulan"> > 1 Bulan</option>
-                                </select>
-
-                            </div>
-                            <br>
-                            <div class="mb-2">
-                                <label for="validationCustom01">No.Hp / Whatsapp:</label>
-                                <input v-model="phone" class="form-control" id="validationCustom01" type="text" placeholder="" required="">
-
-                            </div>
-                            <br>
-                            <div class="row">
-                                <div class="col-sm-12">
-                                    <div class="card">
-                                        <div class="card-header">
-                                            <h5>Deskripsi</h5>
-                                        </div>
-                                        <div class="card-body">
-                                            <textarea class="form-control" v-model="deskripsi" id="exampleFormControlTextarea4" rows="5" placeholder="Deskripsi" required></textarea>
-
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <br>
-                            <div class="row">
-                                <div class="col-12">
-                                    <div class="alert alert-primary">
-                                        <div class="d-flex flex-column">
-                                            <small> File Gambar (.jpeg/png/jpg)</small>
-                                            <br>
-                                            <input type="file" ref="image" class="custom-file-input" accept=".jpeg, .png, .jpg" v-on:change="handleFotoUpload">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <br>
-                            <br>
-
-                            <div class="btn-showcase text-end">
-                                <button class="btn btn-primary" type="submit">Post</button>
-
-                            </div>
-                        </div>
-                    </form>
-
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="#">Home</a></li>
+                        <li class="breadcrumb-item active">Create Project</li>
+                    </ol>
                 </div>
             </div>
         </div>
     </div>
-</div>
 
+    <div class="content">
+        <div class="container-fluid">
+
+            <div class="col-lg-12">
+
+                <div class="card card-primary card-outline">
+                    <div class="card-header">
+
+                    </div>
+                    <div class="card-body">
+
+                        <form @submit.prevent="sendData" enctype="multipart/form-data">
+                            <div class="col-sm-12">
+                                <div class="mb-2">
+                                    <label for="validationCustom01">Project Name:</label>
+                                    <input v-model="name" class="form-control" id="validationCustom01" type="text" placeholder="Project Name" required="">
+                                    <div class="valid-feedback">Looks good!</div>
+                                </div>
+
+
+
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="card">
+                                            <div class="card-header">
+                                                <h5>Deskripsi</h5>
+                                            </div>
+                                            <div class="card-body">
+                                                <textarea class="form-control" v-model="deskripsi" id="exampleFormControlTextarea4" rows="5" placeholder="Deskripsi" required></textarea>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="alert alert-primary">
+                                            <div class="d-flex flex-column">
+                                                <small> File Gambar (.jpeg/png/jpg)</small>
+                                                <br>
+                                                <input type="file" ref="image" class="custom-file-input" accept=".jpeg, .png, .jpg" v-on:change="handleFotoUpload">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <br>
+                                <br>
+
+                                <div style="text-align: right;">
+                                    <button class="btn btn-primary" type="submit">Post</button>
+
+                                </div>
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+
+
+
+            </div>
+        </div>
+    </div>
+
+</div>
 
 
 @endsection
@@ -133,9 +126,6 @@ Project Create
             category_id: '',
             deskripsi: '',
             image: '',
-            budged: '',
-            req_time: '',
-            phone: '',
             loading: false,
         },
         methods: {

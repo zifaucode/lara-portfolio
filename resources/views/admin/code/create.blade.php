@@ -27,74 +27,98 @@ Code Create
 
 @section('content')
 <div id="app" v-cloak>
-    <div class="row">
-        <div class="col-sm-12">
-            <div class="card">
-                <div class="card-header">
-                    <h5>Create SourceCode</h5>
-                </div>
-                <div class="card-body add-post">
-                    <form @submit.prevent="sendData" enctype="multipart/form-data">
-                        <div class="col-sm-12">
-                            <div class="mb-2">
-                                <label for="validationCustom01">Code Name:</label>
-                                <input v-model="name" class="form-control" id="validationCustom01" type="text" placeholder="Code Name" required="">
 
-                            </div>
-                            <br>
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0">Create Source Code</h1>
+                </div><!-- /.col -->
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="#">Home</a></li>
+                        <li class="breadcrumb-item active">Create Source Code</li>
+                    </ol>
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </div>
 
-                            <div class="mb-2">
-                                <label for="validationCustom01">Author Code:</label>
-                                <input v-model="author_code" class="form-control" id="validationCustom01" type="text" placeholder="ex : JohnDoe" required="">
+    <div class="content">
+        <div class="container-fluid">
 
-                            </div>
-                            <br>
-                            <div class="mb-2">
+            <div class="col-lg-12">
 
-                                <label for="validationCustom01">Link Download:</label>
-                                <span class="input-group-text" id="inputGroupPrepend">https://
-                                    <input v-model="link_download" class="form-control" id="validationCustom01" type="text" placeholder="github.com/zifaucode" required="">
-                                </span>
-                            </div>
-                            <br>
+                <div class="card card-primary card-outline">
+                    <div class="card-header">
 
-                            <div class="mb-2">
-                                <label for="validationCustom01">Link Demo:</label>
-                                <span class="input-group-text" id="inputGroupPrepend">https://
-                                    <input v-model="link_demo" class="form-control" id="validationCustom01" type="text" placeholder="demoweb.com" required="">
-                                </span>
-                            </div>
-                            <br>
+                    </div>
+                    <div class="card-body">
+                        <form @submit.prevent="sendData" enctype="multipart/form-data">
+                            <div class="col-sm-12">
+                                <div class="mb-2">
+                                    <label for="validationCustom01">Code Name:</label>
+                                    <input v-model="name" class="form-control" id="validationCustom01" type="text" placeholder="Code Name" required="">
+
+                                </div>
+                                <br>
+
+                                <div class="mb-2">
+                                    <label for="validationCustom01">Author Code:</label>
+                                    <input v-model="author_code" class="form-control" id="validationCustom01" type="text" placeholder="ex : JohnDoe" required="">
+
+                                </div>
+                                <br>
+                                <div class="mb-2">
+
+                                    <label for="validationCustom01">Link Download:</label>
+                                    <span class="input-group-text" id="inputGroupPrepend">https://
+                                        <input v-model="link_download" class="form-control" id="validationCustom01" type="text" placeholder="github.com/zifaucode" required="">
+                                    </span>
+                                </div>
+                                <br>
+
+                                <div class="mb-2">
+                                    <label for="validationCustom01">Link Demo:</label>
+                                    <span class="input-group-text" id="inputGroupPrepend">https://
+                                        <input v-model="link_demo" class="form-control" id="validationCustom01" type="text" placeholder="demoweb.com" required="">
+                                    </span>
+                                </div>
+                                <br>
 
 
 
-                            <br>
-                            <div class="row">
-                                <div class="col-12">
-                                    <div class="alert alert-primary">
-                                        <div class="d-flex flex-column">
-                                            <small> File Gambar (.jpeg/png/jpg)</small>
-                                            <br>
-                                            <input type="file" ref="image" class="custom-file-input" accept=".jpeg, .png, .jpg" v-on:change="handleFotoUpload">
+                                <br>
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="alert alert-primary">
+                                            <div class="d-flex flex-column">
+                                                <small> File Gambar (.jpeg/png/jpg)</small>
+                                                <br>
+                                                <input type="file" ref="image" class="custom-file-input" accept=".jpeg, .png, .jpg" v-on:change="handleFotoUpload">
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <br>
-                            <br>
+                                <br>
+                                <br>
 
-                            <div class="btn-showcase text-end">
-                                <button class="btn btn-primary" type="submit">Post</button>
+                                <div style="text-align: right;">
+                                    <button class="btn btn-primary" type="submit">Post</button>
 
+                                </div>
                             </div>
-                        </div>
-                    </form>
+                        </form>
+
+                    </div>
+
 
                 </div>
             </div>
         </div>
     </div>
 </div>
+
 
 
 

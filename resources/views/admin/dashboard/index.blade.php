@@ -43,7 +43,7 @@ Dashboard
                         <div class="icon">
                             <i class="ion ion-bag"></i>
                         </div>
-                        <a href="/admin/blog" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                        <a href="/admin/blog" class="small-box-footer">Selengkapnya <i class="fas fa-arrow-circle-right"></i></a>
                     </div>
                 </div>
 
@@ -56,7 +56,7 @@ Dashboard
                         <div class="icon">
                             <i class="ion ion-stats-bars"></i>
                         </div>
-                        <a href="/admin/project" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                        <a href="/admin/project" class="small-box-footer">Selengkapnya <i class="fas fa-arrow-circle-right"></i></a>
                     </div>
                 </div>
 
