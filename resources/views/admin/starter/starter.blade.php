@@ -96,6 +96,29 @@ Dashboard
         </div><!-- /.container-fluid -->
     </div>
 
+    <div class="content">
+        <div class="container-fluid">
+            <div class="col-md-12">
+                <div class="card card-info">
+                    <div class="col-md-12">
+                        <div class="card card-info">
+                            <div class="card-header">
+                                <h3 class="card-title"></h3>
+                            </div>
+
+                            <div class="card-body">
+
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
 </div>
 
 @endsection

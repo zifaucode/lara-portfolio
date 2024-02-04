@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use Exception;
+use Illuminate\Support\Facades\DB;
 
 class CategoryBlogController extends Controller
 {
@@ -40,20 +41,27 @@ class CategoryBlogController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+
+
     public function store(Request $request)
     {
+        DB::beginTransaction();
         try {
             $category = new Category;
             $category->name = $request->name;
             $category->save();
+
+            DB::commit();
             return response()->json([
-                'message' => 'OK',
-                'data' => $category,
+                'message' => 'Data has been saved',
+                'code' => 200,
+                'error' => false,
             ]);
-        } catch (Exception $e) {
+        } catch (\Throwable $e) {
+            DB::rollback();
             return response()->json([
-                'message' => 'Internal error',
-                'code' => '500',
+                'message' => $e->getMessage(),
+                'code' => 500,
                 'error' => true,
                 'errors' => $e,
             ], 500);

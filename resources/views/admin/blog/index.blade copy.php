@@ -94,10 +94,11 @@ Blog
 
 @section('pagescript')
 <script>
+    const blog = <?php echo Illuminate\Support\Js::from($blog) ?>;
     let app = new Vue({
         el: '#app',
         data: {
-            blog: JSON.parse(String.raw `{!! json_encode($blog) !!}`),
+            blog,
         },
         methods: {
             deleteRecord: function(id) {

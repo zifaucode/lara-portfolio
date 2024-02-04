@@ -8,6 +8,7 @@ use App\Models\Category;
 use Illuminate\Http\Request;
 use Exception;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Validator;
 
 class AdminBlogController extends Controller
@@ -58,39 +59,45 @@ class AdminBlogController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+
+
     public function store(Request $request)
     {
-        $validated = $request->validate([
-            'image' => 'file|max:1024|mimes:jpg,bmp,png',
-        ]);
-
-
-        $user = Auth::user();
-        $date = date(' Y-m-d ');
+        DB::beginTransaction();
         try {
+
+            $request->validate([
+                'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            ]);
+
+
+            // $user = Auth::user();
+            $date = date(' Y-m-d ');
             $blog = new Blog;
             $blog->date = $date;
-            $blog->user_id = $user->id;
+            $blog->user_id = 1;
             $blog->category_id = $request->category_id;
+            $categoryName = Category::where('id', $request->category_id)->first()->name;
             $blog->title = $request->title;
+
+
             $blog->content = $request->content;
             $blog->image = $request->file('image');
-            $nama_foto =  $blog->category_id . "_" . $request->image_name;
+            $nama_foto =  $categoryName . "_" . time() . '.' . $request->image->extension();
             $blog->image->move('files/blog', $nama_foto);
             $blog->image = $nama_foto;
+
+
             $blog->active = 1;
             $blog->save();
-            return response()->json([
-                'message' => 'OK',
-                'data' => $blog,
-            ]);
-        } catch (Exception $e) {
-            return response()->json([
-                'message' => 'Internal error',
-                'code' => '500',
-                'error' => true,
-                'errors' => $e,
-            ], 500);
+
+            DB::commit();
+            session()->flash('status', 'Create Blog Success ');
+            return redirect()->back();
+        } catch (\Throwable $e) {
+            DB::rollback();
+            session()->flash('error', 'Error ' . $e->getMessage());
+            return redirect()->back();
         }
     }
 

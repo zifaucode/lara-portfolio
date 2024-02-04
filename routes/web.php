@@ -75,14 +75,14 @@ Route::controller(AdminBlogController::class)->prefix('/admin/blog')->group(func
     Route::get('/persetujuan', 'persetujuan')->name('admin-blog.persetujuan');
     Route::patch('/{id}', 'update')->name('admin-blog.update');
     Route::patch('/status/{id}', 'status')->name('admin-blog.status');
-    Route::post('/', 'store')->name('admin-blog.strore');
+    Route::post('/', 'store')->name('admin-blog.store');
     Route::delete('/{id}', 'destroy')->name('admin-blog.destroy');
 });
 
 Route::controller(CategoryBlogController::class)->prefix('/admin/blog')->group(function () {
     Route::get('/category', 'index')->name('admin-blog-category.index');
     Route::patch('/category/{id}', 'update')->name('admin-blog-category.update');
-    Route::post('/category', 'store')->name('admin-blog-category.strore');
+    Route::post('/category', 'store')->name('admin-blog-category.store');
     Route::delete('/category/{id}', 'destroy')->name('admin-blog-category.destroy');
 });
 
