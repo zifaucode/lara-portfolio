@@ -80,8 +80,33 @@ class AdminBlogController extends Controller
             $categoryName = Category::where('id', $request->category_id)->first()->name;
             $blog->title = $request->title;
 
+            // ===================== DOM IMAGE UPLOAD ===================
 
-            $blog->content = $request->content;
+            $content = $request->content;
+            $dom = new \DomDocument();
+            $dom->loadHtml($content, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+            $imageFile = $dom->getElementsByTagName('img');
+
+            foreach ($imageFile as $item => $image) {
+                $data = $image->getAttribute('src');
+                list($type, $data) = explode(';', $data);
+                list(, $data)      = explode(',', $data);
+                $imgeData = base64_decode($data);
+                $image_name = "/files/content/" . time() . $item . '.png';
+                $path = public_path() . $image_name;
+                file_put_contents($path, $imgeData);
+
+                $image->removeAttribute('src');
+                $image->setAttribute('src', $image_name);
+            }
+
+
+
+            $content = $dom->saveHTML();
+            //    ============================= DOM IMAGE UPLOAD ==========================
+
+
+            $blog->content = $content;
             $blog->image = $request->file('image');
             $nama_foto =  $categoryName . "_" . time() . '.' . $request->image->extension();
             $blog->image->move('files/blog', $nama_foto);

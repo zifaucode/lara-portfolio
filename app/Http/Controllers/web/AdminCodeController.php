@@ -8,6 +8,7 @@ use App\Models\SourceCode;
 use Illuminate\Http\Request;
 use Exception;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use League\CommonMark\Extension\CommonMark\Node\Inline\Code;
 
 class AdminCodeController extends Controller
@@ -43,13 +44,13 @@ class AdminCodeController extends Controller
      */
     public function store(Request $request)
     {
-
         $validated = $request->validate([
-            'image' => 'file|max:512|mimes:jpg,bmp,png',
+            'image' => 'file|max:1024|mimes:jpg,bmp,png',
         ]);
 
         $user = Auth::user();
         $date = date(' Y-m-d ');
+        DB::beginTransaction();
         try {
             $code = new SourceCode;
             $code->date = $date;
@@ -62,11 +63,13 @@ class AdminCodeController extends Controller
             $code->image->move('files/code', $nama_foto);
             $code->image = $nama_foto;
             $code->save();
+            DB::commit();
             return response()->json([
                 'message' => 'OK',
                 'data' => $code,
             ]);
         } catch (Exception $e) {
+            DB::rollback();
             return response()->json([
                 'message' => 'Internal error',
                 'code' => '500',
@@ -84,7 +87,10 @@ class AdminCodeController extends Controller
      */
     public function show($id)
     {
-        //
+        $code = SourceCode::find($id);
+        return view('admin.code.detail', [
+            'code' => $code,
+        ]);
     }
 
     /**
@@ -95,7 +101,10 @@ class AdminCodeController extends Controller
      */
     public function edit($id)
     {
-        //
+        $code = SourceCode::find($id);
+        return view('admin.code.edit', [
+            'code' => $code,
+        ]);
     }
 
     /**
@@ -107,7 +116,38 @@ class AdminCodeController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $date = date(' Y-m-d ');
+        DB::beginTransaction();
+        try {
+            $codeUpdate = SourceCode::find($id);
+            $codeUpdate->date = $date;
+            $codeUpdate->name = $request->name;
+            $codeUpdate->link_download = $request->link_download;
+            $codeUpdate->link_demo = $request->link_demo;
+            $codeUpdate->author_code = $request->author_code;
+            if ($codeUpdate->image == null) {
+                $codeUpdate->image = $request->file('image');
+                $nama_foto =  $codeUpdate->name . "_" . $request->image_name;
+                $codeUpdate->image->move('files/code', $nama_foto);
+                $codeUpdate->image = $nama_foto;
+            }
+
+
+            $codeUpdate->save();
+            DB::commit();
+            return response()->json([
+                'message' => 'OK',
+                'data' => $codeUpdate,
+            ]);
+        } catch (Exception $e) {
+            DB::rollback();
+            return response()->json([
+                'message' => 'Internal error',
+                'code' => '500',
+                'error' => true,
+                'errors' => $e,
+            ], 500);
+        }
     }
 
     /**

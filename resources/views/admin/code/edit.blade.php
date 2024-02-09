@@ -1,6 +1,6 @@
 @extends('layouts-admin.app')
 @section('title')
-Code Create
+Edit
 @endsection
 
 
@@ -32,12 +32,12 @@ Code Create
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0">Create Source Code</h1>
+                    <h1 class="m-0">Edit Source Code</h1>
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="#">Home</a></li>
-                        <li class="breadcrumb-item active">Create Source Code</li>
+                        <li class="breadcrumb-item active">Edit Source Code</li>
                     </ol>
                 </div><!-- /.col -->
             </div><!-- /.row -->
@@ -130,11 +130,11 @@ Code Create
     let app = new Vue({
         el: '#app',
         data: {
-            name: '',
-            link_download: '',
-            link_demo: '',
+            name: '{{ $code->name }}',
+            link_download: '{{ $code->link_download }}',
+            link_demo: '{{ $code->link_demo }}',
             image: '',
-            author_code: '',
+            author_code: '{{ $code->author_code }}',
             loading: false,
         },
         methods: {
@@ -159,12 +159,12 @@ Code Create
                 for (var key in data) {
                     formData.append(key, data[key]);
                 }
-                axios.post('/admin/code', formData)
+                axios.post('/admin/code/update/{{ $code->id }}', formData)
                     .then(function(response) {
                         vm.loading = false;
                         Swal.fire({
                             title: 'Success',
-                            text: 'Create New Source Code Success.',
+                            text: 'Edit Source Code Success.',
                             icon: 'success',
                             allowOutsideClick: false,
                         }).then((result) => {

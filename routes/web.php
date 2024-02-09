@@ -99,8 +99,9 @@ Route::controller(AdminProjectController::class)->prefix('/admin/project')->grou
 Route::controller(AdminCodeController::class)->prefix('/admin/code')->group(function () {
     Route::get('/', 'index')->name('admin-code.index');
     Route::get('/create', 'create')->name('admin-code.create');
+    Route::post('/update/{id}', 'update')->name('admin-code.update');
     Route::get('/edit/{id}', 'edit')->name('admin-code.edit');
-    Route::get('/detail/{id}', 'detail')->name('admin-code.detail');
+    Route::get('/detail/{id}', 'show')->name('admin-code.detail');
     Route::patch('/{id}', 'update')->name('admin-code.update');
     Route::post('/', 'store')->name('admin-code.strore');
     Route::delete('/{id}', 'destroy')->name('admin-code.destroy');
