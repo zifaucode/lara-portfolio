@@ -73,7 +73,7 @@ Route::controller(AdminBlogController::class)->prefix('/admin/blog')->group(func
     Route::get('/detail/{id}', 'show')->name('admin-blog.show');
     Route::get('/edit/{id}', 'edit')->name('admin-blog.edit');
     Route::get('/persetujuan', 'persetujuan')->name('admin-blog.persetujuan');
-    Route::patch('/{id}', 'update')->name('admin-blog.update');
+    Route::post('/{id}', 'update')->name('admin-blog.update');
     Route::patch('/status/{id}', 'status')->name('admin-blog.status');
     Route::post('/', 'store')->name('admin-blog.store');
     Route::delete('/{id}', 'destroy')->name('admin-blog.destroy');

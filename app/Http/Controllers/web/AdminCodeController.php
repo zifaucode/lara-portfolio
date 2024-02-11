@@ -125,7 +125,7 @@ class AdminCodeController extends Controller
             $codeUpdate->link_download = $request->link_download;
             $codeUpdate->link_demo = $request->link_demo;
             $codeUpdate->author_code = $request->author_code;
-            if ($codeUpdate->image == null) {
+            if ($request->hasFile('image')) {
                 $codeUpdate->image = $request->file('image');
                 $nama_foto =  $codeUpdate->name . "_" . $request->image_name;
                 $codeUpdate->image->move('files/code', $nama_foto);
