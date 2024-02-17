@@ -8,6 +8,7 @@ use App\Models\Project;
 use Illuminate\Http\Request;
 use Exception;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Validator;
 
 class AdminProjectController extends Controller
@@ -19,7 +20,7 @@ class AdminProjectController extends Controller
      */
     public function index()
     {
-        $project = Project::with(['users', 'status'])->get();
+        $project = Project::all();
         return view('admin.project.index', [
             'project' => $project,
         ]);
@@ -43,40 +44,38 @@ class AdminProjectController extends Controller
      */
     public function store(Request $request)
     {
-
+        DB::beginTransaction();
         $validated = $request->validate([
-            'image' => 'file|max:512|mimes:jpg,bmp,png',
+            'image' => 'file|max:2048|mimes:jpg,bmp,png',
         ]);
-
-        $user = Auth::user();
-        $date = date(' Y-m-d ');
         try {
             $project = new Project;
-            $project->date = $date;
-            $project->user_id = $user->id;
-            $project->status_id = $request->status_id;
-            $project->category_id = $request->category_id;
             $project->name = $request->name;
             $project->deskripsi = $request->deskripsi;
-            $project->req_time = $request->req_time;
-            $project->budged = $request->budged;
-            $project->message = $request->message;
-            $project->phone = $request->phone;
-            $project->image = $request->file('image');
-            $nama_foto =  $project->name . "_" . $request->image_name;
-            $project->image->move('files/project', $nama_foto);
-            $project->image = $nama_foto;
+            $project->link = $request->link;
+
+            if ($request->hasFile('image')) {
+                $project->image = $request->file('image');
+                $nama_foto =  $project->name . "_" . time() . '.' . $request->image->extension();
+                $project->image->move('files/project', $nama_foto);
+                $project->image = $nama_foto;
+            }
+
             $project->save();
+            DB::commit();
             return response()->json([
-                'message' => 'OK',
+                'message' => 'Save data successfully ',
                 'data' => $project,
+                'code' => '200',
             ]);
         } catch (Exception $e) {
+            DB::rollback();
             return response()->json([
                 'message' => 'Internal error',
                 'code' => '500',
                 'error' => true,
-                'errors' => $e,
+                'line' => $e->getLine(),
+                'errors' => $e->getMessage(),
             ], 500);
         }
     }
@@ -94,7 +93,8 @@ class AdminProjectController extends Controller
 
     public function detail($id)
     {
-        $project = Project::with(['users', 'status'])->findOrFail($id);
+        $project = Project::findOrFail($id);
+        // return $project;
         return view('admin.project.detail', [
             'project' => $project,
         ]);
@@ -107,7 +107,11 @@ class AdminProjectController extends Controller
      */
     public function edit($id)
     {
-        //
+        $project = Project::findOrFail($id);
+        // return $project;
+        return view('admin.project.edit', [
+            'project' => $project,
+        ]);
     }
 
     /**
@@ -119,21 +123,35 @@ class AdminProjectController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $updates = Project::findOrFail($id);
-        $updates->status_id = $request->status_id;
-        $updates->message = $request->message;
+        DB::beginTransaction();
         try {
-            $updates->save();
+            $projectUpdate = Project::findOrFail($id);
+            $projectUpdate->name = $request->name;
+            $projectUpdate->deskripsi = $request->deskripsi;
+            $projectUpdate->link = $request->link;
+
+            if ($request->hasFile('image')) {
+                $projectUpdate->image = $request->file('image');
+                $nama_foto =  $projectUpdate->name . "_" . time() . '.' . $request->image->extension();
+                $projectUpdate->image->move('files/project', $nama_foto);
+                $projectUpdate->image = $nama_foto;
+            }
+
+            $projectUpdate->save();
+            DB::commit();
             return response()->json([
-                'message' => 'OK',
+                'message' => 'Update Data successfully ',
+                'data' => $projectUpdate,
                 'code' => '200',
             ]);
         } catch (Exception $e) {
+            DB::rollback();
             return response()->json([
                 'message' => 'Internal error',
                 'code' => '500',
                 'error' => true,
-                'errors' => $e,
+                'line' => $e->getLine(),
+                'errors' => $e->getMessage(),
             ], 500);
         }
     }

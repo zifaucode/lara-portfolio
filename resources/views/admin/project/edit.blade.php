@@ -1,6 +1,6 @@
 @extends('layouts-admin.app')
 @section('title')
-Project Create
+Project Edit
 @endsection
 
 
@@ -32,12 +32,12 @@ Project Create
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0">Create Project</h1>
+                    <h1 class="m-0">Edit Project</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="#">Home</a></li>
-                        <li class="breadcrumb-item active">Create Project</li>
+                        <li class="breadcrumb-item active">Edit Project</li>
                     </ol>
                 </div>
             </div>
@@ -73,6 +73,14 @@ Project Create
                                     <div class="col-sm-12">
                                         <label>Description:</label>
                                         <textarea class="form-control" v-model="deskripsi" id="exampleFormControlTextarea4" rows="5" placeholder="Description This Project" required></textarea>
+                                    </div>
+                                </div>
+
+                                <div class="row mb-4">
+                                    <div class="col-12">
+                                        <label>Image Before Edit:</label>
+                                        <br>
+                                        <img :src="'/files/project/' + projectImage" width="250px">
                                     </div>
                                 </div>
 
@@ -117,9 +125,10 @@ Project Create
     let app = new Vue({
         el: '#app',
         data: {
-            name: '',
-            deskripsi: '',
-            link: '',
+            name: '{{ $project->name }}',
+            deskripsi: '{{ $project->deskripsi }}',
+            link: '{{ $project->link }}',
+            projectImage: '{{ $project->image }}',
             image: '',
             loading: false,
         },
@@ -144,12 +153,12 @@ Project Create
                 for (var key in data) {
                     formData.append(key, data[key]);
                 }
-                axios.post('/admin/project/', formData)
+                axios.post('/admin/project/update/{{ $project->id }}', formData)
                     .then(function(response) {
                         vm.loading = false;
                         Swal.fire({
                             title: 'Success',
-                            text: 'Create Project Success.',
+                            text: 'Update Project Success.',
                             icon: 'success',
                             allowOutsideClick: false,
                         }).then((result) => {

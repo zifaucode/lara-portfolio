@@ -91,7 +91,7 @@ Route::controller(AdminProjectController::class)->prefix('/admin/project')->grou
     Route::get('/create', 'create')->name('admin-project.create');
     Route::get('/edit/{id}', 'edit')->name('admin-project.edit');
     Route::get('/detail/{id}', 'detail')->name('admin-project.detail');
-    Route::patch('/{id}', 'update')->name('admin-project.update');
+    Route::post('/update/{id}', 'update')->name('admin-project.update');
     Route::post('/', 'store')->name('admin-project.strore');
     Route::delete('/{id}', 'destroy')->name('admin-project.destroy');
 });

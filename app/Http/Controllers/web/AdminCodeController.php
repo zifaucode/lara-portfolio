@@ -136,8 +136,9 @@ class AdminCodeController extends Controller
             $codeUpdate->save();
             DB::commit();
             return response()->json([
-                'message' => 'OK',
+                'message' => 'Save data successfully ',
                 'data' => $codeUpdate,
+                'code' => '200',
             ]);
         } catch (Exception $e) {
             DB::rollback();
@@ -145,7 +146,8 @@ class AdminCodeController extends Controller
                 'message' => 'Internal error',
                 'code' => '500',
                 'error' => true,
-                'errors' => $e,
+                'line' => $e->getLine(),
+                'errors' => $e->getMessage(),
             ], 500);
         }
     }
