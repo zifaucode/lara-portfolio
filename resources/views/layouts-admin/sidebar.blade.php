@@ -95,12 +95,16 @@
                     </a>
                 </li>
 
-
-
                 <li class="nav-item">
-                    <a href="https://adminlte.io/docs/3.1/" class="nav-link">
+                    <a href="/" class="nav-link">
                         <i class="nav-icon fas fa-file"></i>
-                        <p>Documentation</p>
+                        <p>Home page </p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="/" class="nav-link">
+                        <i class="nav-icon fas fa-power-off"></i>
+                        <p>Logout</p>
                     </a>
                 </li>
             </ul>
