@@ -1,4 +1,4 @@
-<p align="center"><a href="https://github.com/zifaucode/cek-lulus" target="_blank"><img src="https://user-images.githubusercontent.com/33486013/164989084-586c08af-43ea-4f59-93dd-54f25f22c830.png" width="900"></a></p>
+<p align="center"><a href="https://github.com/zifaucode/cek-lulus" target="_blank"><img src="https://github.com/zifaucode/lara-portfolio/assets/33486013/bb3a7afa-9cc1-40b7-bfde-a22d326479c9" width="900"></a></p>
 
 <p align="center">
 <a href="https://trakteer.id/zifau"><img src="https://img.shields.io/static/v1?label=Trakteer&message=zifaucode&color=C02433"></a>
@@ -21,7 +21,9 @@
 
 ENG:
 Web for portfolio needs created with the aim of making it easier for freelancers to build websites and write blogs on their personal websites.
+
 <br>
+
 ID:
 Merupakan Web untuk kebutuhan portfolio yang dibuat dengan tujuan memudahkan para pekerja lepas untuk membangun website dan menulis blog pada website pribadinya
 
