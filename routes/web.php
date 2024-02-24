@@ -129,10 +129,10 @@ Route::controller(AdminTaskController::class)->prefix('/admin/task')->group(func
 
 Route::controller(AdminSettingController::class)->prefix('/admin/setting')->group(function () {
     Route::get('/', 'index')->name('admin-setting.index');
-    Route::get('/edit/{id}', 'edit')->name('admin-setting.edit');
+    Route::get('/setting-web', 'setting_web')->name('admin-setting.setting-web');
     Route::get('/detail/{id}', 'detail')->name('admin-setting.detail');
     Route::patch('/{id}', 'update')->name('admin-setting.update');
-    Route::post('/', 'store')->name('admin-setting.strore');
+    Route::post('/update-web-setting', 'update_web_setting')->name('admin-setting.update-web-setting');
     Route::delete('/{id}', 'destroy')->name('admin-setting.destroy');
 });
 // });

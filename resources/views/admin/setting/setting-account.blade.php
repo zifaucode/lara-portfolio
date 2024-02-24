@@ -39,12 +39,12 @@ Edit
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0">Edit About Me</h1>
+                    <h1 class="m-0">Create Source Code</h1>
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="#">Home</a></li>
-                        <li class="breadcrumb-item active">Edit About Me</li>
+                        <li class="breadcrumb-item active">Create Source Code</li>
                     </ol>
                 </div><!-- /.col -->
             </div><!-- /.row -->
@@ -162,8 +162,7 @@ Edit
                                 </div>
 
                                 <div style="text-align: right;">
-                                    <a href="/admin/about" class="btn btn-secondary me-3">Cancel</a>
-                                    <button class="btn btn-primary me-3" type="submit">Save</button>
+                                    <button class="btn btn-primary" type="submit">Save</button>
 
                                 </div>
                             </div>

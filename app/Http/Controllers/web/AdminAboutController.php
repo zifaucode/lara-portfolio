@@ -57,6 +57,9 @@ class AdminAboutController extends Controller
                 $updateAbout->instagram = $request->instagram;
                 $updateAbout->facebook = $request->facebook;
                 $updateAbout->twitter = $request->twitter;
+                $updateAbout->last_education = $request->last_education;
+                $updateAbout->skill = $request->skill;
+                $updateAbout->work_experience = $request->work_experience;
 
                 if ($request->hasFile('image')) {
                     $updateAbout->image = $request->file('image');

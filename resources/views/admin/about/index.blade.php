@@ -78,18 +78,14 @@ About Me
                             <strong><i class="fas fa-book mr-1"></i> Education</strong>
 
                             <p class="text-muted">
-                                B.S. in Computer Science from the University of Tennessee at Knoxville
+                                @{{ last_education }}
                             </p>
                             <hr>
 
                             <strong><i class="fas fa-pencil-alt mr-1"></i> Skills</strong>
 
                             <p class="text-muted">
-                                <span class="tag tag-danger">UI Design</span>
-                                <span class="tag tag-success">Coding</span>
-                                <span class="tag tag-info">Javascript</span>
-                                <span class="tag tag-warning">PHP</span>
-                                <span class="tag tag-primary">Node.js</span>
+                                @{{ skill }}
                             </p>
 
                             <hr>
@@ -120,7 +116,7 @@ About Me
                                 <div class="user-block">
                                     <h5><b>work experience</b> </h5>
                                 </div>
-                                <p>bla bla bla bla</p>
+                                <p>@{{ work_experience }}</p>
                             </div>
                         </div>
                     </div>
@@ -165,6 +161,9 @@ About Me
             instagram: `{{ $about->instagram ?? '' }}`,
             facebook: `{{ $about->facebook ?? '' }}`,
             twitter: `{{ $about->twitter ?? '' }}`,
+            last_education: `{{ $about->last_education ?? '' }}`,
+            skill: `{{ $about->skill ?? '' }}`,
+            work_experience: `{{ $about->work_experience ?? '' }}`,
             image: `{{ $about->image ?? '' }}`,
         },
         methods: {
