@@ -8,21 +8,22 @@
 
 # Index
 
--   **[Tentang CEK-LULUS](#about-lara-portfolio)**
--   **[CARA INSTALL](#how-to-install)**
+-   **[about LARA-PORTPOLIO](#about-lara-portfolio)**
+-   **[HOW TO INSTALL](#how-to-install)**
 -   **[USER PASSWORD](#user-password)**
--   **[TRAKTIR KOPI](#traktir-kopi)**
+-   **[TRAKTIR COFFEE](#traktir-kopi)**
+-   **[License](#license)**
 
 <br>
 <br>
 
 ## about LARA-PORTPOLIO
 
-ID:
-Merupakan Web untuk kebutuhan portfolio yang dibuat dengan tujuan memudahkan para pekerja lepas untuk membangun website dan menulis blog pada website pribadinya
-
 ENG:
 Web for portfolio needs created with the aim of making it easier for freelancers to build websites and write blogs on their personal websites.
+<br>
+ID:
+Merupakan Web untuk kebutuhan portfolio yang dibuat dengan tujuan memudahkan para pekerja lepas untuk membangun website dan menulis blog pada website pribadinya
 
 <br>
 <br>
@@ -57,7 +58,7 @@ option if you do not want to run the database migrate and seeder:
 <br>
 <br>
 
-## TRAKTIR KOPI
+## TRAKTIR COFFEE
 
 Treat me to coffee to keep me fresh while coding : <a href="https://trakteer.id/zifau"><img src="https://img.shields.io/static/v1?label=Trakteer&message=zifaucode&color=C02433"></a>
 
