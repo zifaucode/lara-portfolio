@@ -34,18 +34,36 @@ About Me
 
     <section class="content">
         <div class="container-fluid">
+            <div class="alert alert-info">
+                <p>Edit your profil &nbsp;
+                    <a href="/admin/about/edit" class="btn btn-sm btn-primary">
+                        Click For Edit &nbsp;
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">
+                            <path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325" />
+                        </svg>
+                    </a>
+                </p>
+            </div>
             <div class="row">
+
                 <div class="col-md-3">
 
                     <div class="card card-primary card-outline">
                         <div class="card-body box-profile">
                             <div class="text-center">
-                                <img class="profile-user-img img-fluid img-circle" src="../../dist/img/user4-128x128.jpg" alt="User profile picture">
+                                <template v-if="image !=''">
+                                    <img class="profile-user-img img-fluid img-circle" :src="`/files/about/` + image">
+                                </template>
+
+                                <template v-else>
+                                    <img class="profile-user-img img-fluid img-circle" src="/files/about/avatar.png">
+                                </template>
+
                             </div>
 
-                            <h3 class="profile-username text-center">Nama</h3>
+                            <h3 class="profile-username text-center">@{{ name }}</h3>
 
-                            <p class="text-muted text-center">Software Engineer</p>
+                            <p class="text-muted text-center">@{{ role }}</p>
 
 
                         </div>
@@ -78,7 +96,7 @@ About Me
 
                             <strong><i class="far fa-file-alt mr-1"></i> Hobby</strong>
 
-                            <p class="text-muted">Lorem ipsum dolor sit amet.</p>
+                            <p class="text-muted">@{{ hobby }}</p>
                         </div>
                     </div>
                 </div>
@@ -91,7 +109,7 @@ About Me
                                 <div class="user-block">
                                     <h5><b>description</b> </h5>
                                 </div>
-                                <p>bla bla bla bla</p>
+                                <p>@{{ description }}</p>
                             </div>
                         </div>
                     </div>
@@ -111,9 +129,13 @@ About Me
                         <div class="card-body">
                             <div class="post">
                                 <div class="user-block">
-                                    <h5><b>Social Media</b> </h5>
+                                    <h5><b>Social</b> </h5>
                                 </div>
-                                <p>bla bla bla bla</p>
+                                <p>Github: <a :href="github" target="_blank"> @{{ github }}</a></p>
+                                <p>Gitlab: <a :href="gitlab" target="_blank">@{{ gitlab }}</a></p>
+                                <p>facebook: <a :href="facebook" target="_blank">@{{ facebook }}</a></p>
+                                <p>instagram: <a :href="instagram" target="_blank"> @{{ instagram }} </a></p>
+                                <p>twitter: <a :href="twitter" target="_blank"> @{{ twitter }} </a></p>
                             </div>
                         </div>
                     </div>
@@ -133,7 +155,17 @@ About Me
     let app = new Vue({
         el: '#app',
         data: {
-
+            name: `{{ $about->name ?? '' }}`,
+            email: `{{ $about->email ?? '' }}`,
+            role: `{{ $about->role ?? '' }}`,
+            description: `{{ $about->description ?? '' }}`,
+            hobby: `{{ $about->hobby ?? '' }}`,
+            github: `{{ $about->github ?? '' }}`,
+            gitlab: `{{ $about->gitlab ?? '' }}`,
+            instagram: `{{ $about->instagram ?? '' }}`,
+            facebook: `{{ $about->facebook ?? '' }}`,
+            twitter: `{{ $about->twitter ?? '' }}`,
+            image: `{{ $about->image ?? '' }}`,
         },
         methods: {
 

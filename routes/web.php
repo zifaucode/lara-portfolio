@@ -110,7 +110,7 @@ Route::controller(AdminCodeController::class)->prefix('/admin/code')->group(func
 Route::controller(AdminAboutController::class)->prefix('/admin/about')->group(function () {
     Route::get('/', 'index')->name('admin-about.index');
     Route::get('/create', 'create')->name('admin-about.create');
-    Route::get('/edit/{id}', 'edit')->name('admin-about.edit');
+    Route::get('/edit', 'edit')->name('admin-about.edit');
     Route::get('/detail/{id}', 'detail')->name('admin-about.detail');
     Route::patch('/{id}', 'update')->name('admin-about.update');
     Route::post('/', 'store')->name('admin-about.strore');

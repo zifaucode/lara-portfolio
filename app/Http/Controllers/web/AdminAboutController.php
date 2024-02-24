@@ -4,7 +4,9 @@ namespace App\Http\Controllers\web;
 
 use App\Http\Controllers\Controller;
 use App\Models\About;
+use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class AdminAboutController extends Controller
 {
@@ -40,7 +42,58 @@ class AdminAboutController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        DB::beginTransaction();
+        try {
+            $getData = About::first();
+            if (isset($getData)) {
+                $updateAbout = About::find($getData->id);
+                $updateAbout->name = $request->name;
+                $updateAbout->email = $request->email;
+                $updateAbout->role = $request->role;
+                $updateAbout->description = $request->description;
+                $updateAbout->hobby = $request->hobby;
+                $updateAbout->github = $request->github;
+                $updateAbout->gitlab = $request->gitlab;
+                $updateAbout->instagram = $request->instagram;
+                $updateAbout->facebook = $request->facebook;
+                $updateAbout->twitter = $request->twitter;
+
+                if ($request->hasFile('image')) {
+                    $updateAbout->image = $request->file('image');
+                    $nama_foto =  $updateAbout->name . "_" . $request->image_name;
+                    $updateAbout->image->move('files/about', $nama_foto);
+                    $updateAbout->image = $nama_foto;
+                }
+
+                $updateAbout->save();
+                DB::commit();
+                return response()->json([
+                    'message' => 'Save data successfully ',
+                    'data' => $updateAbout,
+                    'code' => '200',
+                ]);
+            } else {
+                $newAbout = new About();
+                $newAbout->name = $request->name;
+                $newAbout->email = $request->email;
+                $newAbout->save();
+                DB::commit();
+                return response()->json([
+                    'message' => 'Save data successfully ',
+                    'data' => $newAbout,
+                    'code' => '200',
+                ]);
+            }
+        } catch (Exception $e) {
+            DB::rollback();
+            return response()->json([
+                'message' => 'Internal error',
+                'code' => '500',
+                'error' => true,
+                'line' => $e->getLine(),
+                'errors' => $e->getMessage(),
+            ], 500);
+        }
     }
 
     /**
@@ -60,9 +113,12 @@ class AdminAboutController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit()
     {
-        return view('admin.about.edit');
+        $about = About::first();
+        return view('admin.about.edit', [
+            'about' => $about
+        ]);
     }
 
     /**
