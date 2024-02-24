@@ -8,7 +8,7 @@
 
 # Index
 
--   **[about LARA-PORTPOLIO](#about-lara-portfolio)**
+-   **[ABOUT LARA-PORTPOLIO](#about-lara-portfolio)**
 -   **[HOW TO INSTALL](#how-to-install)**
 -   **[USER PASSWORD](#user-password)**
 -   **[TRAKTIR COFFEE](#traktir-kopi)**
@@ -17,7 +17,7 @@
 <br>
 <br>
 
-## about LARA-PORTPOLIO
+## ABOUT LARA-PORTPOLIO
 
 ENG:
 Web for portfolio needs created with the aim of making it easier for freelancers to build websites and write blogs on their personal websites.
