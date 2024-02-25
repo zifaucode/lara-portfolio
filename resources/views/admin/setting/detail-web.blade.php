@@ -1,6 +1,6 @@
 @extends('layouts-admin.app')
 @section('title')
-Edit Web Front
+Detail Web Front
 @endsection
 
 
@@ -39,12 +39,12 @@ Edit Web Front
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0">Edit Web Front</h1>
+                    <h1 class="m-0">Detail Web Front</h1>
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="#">Home</a></li>
-                        <li class="breadcrumb-item active">Edit Web Front</li>
+                        <li class="breadcrumb-item active">Detail Web Front</li>
                     </ol>
                 </div><!-- /.col -->
             </div><!-- /.row -->
@@ -65,71 +65,61 @@ Edit Web Front
                             <div class="col-sm-12">
                                 <div class="mb-4">
                                     <label for="validationCustom01">Web Title:</label>
-                                    <input v-model="web_title" class="form-control" type="text" placeholder="Web Title">
+                                    <p>@{{ web_title }}</p>
 
                                 </div>
 
                                 <div class="mb-4">
                                     <label for="validationCustom01">Web Name:</label>
-                                    <input v-model="web_name" class="form-control" type="text" placeholder="Web Name">
+                                    <p>@{{ web_name }}</p>
 
                                 </div>
 
                                 <div class="mb-4">
                                     <label for="validationCustom01">Web Desk:</label>
-                                    <textarea class="form-control" cols="20" rows="3" v-model="web_desk"></textarea>
+                                    <p>@{{ web_desk }}</p>
                                 </div>
 
                                 <div class="mb-4">
                                     <label for="validationCustom01">Web Meta:</label>
-                                    <textarea class="form-control" cols="20" rows="3" v-model="web_meta"></textarea>
+                                    <p>@{{ web_meta }}</p>
                                 </div>
 
 
                                 <div class="mb-4">
                                     <label for="validationCustom01">Web Footer:</label>
-                                    <input v-model="web_footer" class="form-control" type="text" placeholder="Web Footer">
-
+                                    <p>@{{ web_footer }}</p>
                                 </div>
 
 
                                 <div class="row mb-4">
                                     <div class="col-12">
-                                        <div class="alert alert-primary">
-                                            <div class="d-flex flex-column">
-                                                <small> Logo (.jpeg/png/jpg)</small>
-                                                <br>
-                                                <input type="file" ref="web_logo" class="form-control" accept=".jpeg, .png, .jpg" v-on:change="handleLogoUpload">
-                                            </div>
+                                        <div class="d-flex flex-column">
+                                            <label for="validationCustom01">Logo:</label>
+                                            <img :src="'/files/logo/' + web_logo" width="250px">
                                         </div>
                                     </div>
                                 </div>
                                 <div class="row mb-4">
                                     <div class="col-12">
-                                        <div class="alert alert-primary">
-                                            <div class="d-flex flex-column">
-                                                <small> Icon (.jpeg/png/jpg)</small>
-                                                <br>
-                                                <input type="file" ref="web_icon" class="form-control" accept=".jpeg, .png, .jpg" v-on:change="handleIconUpload">
-                                            </div>
+                                        <div class="d-flex flex-column">
+                                            <label for="validationCustom01">Icon:</label>
+                                            <img :src="'/files/icon/' + web_icon" width="250px">
                                         </div>
                                     </div>
                                 </div>
 
                                 <div class="row mb-4">
                                     <div class="col-12">
-                                        <div class="alert alert-primary">
-                                            <div class="d-flex flex-column">
-                                                <small> Front Image (.jpeg/png/jpg)</small>
-                                                <br>
-                                                <input type="file" ref="web_front_image" class="form-control" accept=".jpeg, .png, .jpg" v-on:change="handleFrontImageUpload">
-                                            </div>
+                                        <div class="d-flex flex-column">
+                                            <label for="validationCustom01">Front Image:</label>
+                                            <img :src="'/files/front-image/' + web_front_image" width="250px">
                                         </div>
                                     </div>
                                 </div>
 
                                 <div style="text-align: right;">
-                                    <button class="btn btn-primary" type="submit">Save</button>
+                                    <a href="/admin/setting" class="btn btn-secondary">Back</a>
 
                                 </div>
                             </div>
@@ -155,9 +145,9 @@ Edit Web Front
     let app = new Vue({
         el: '#app',
         data: {
-            web_logo: '',
-            web_icon: '',
-            web_front_image: '',
+            web_logo: `{{ $setting->web_logo ?? '' }}`,
+            web_icon: `{{ $setting->web_icon ?? '' }}`,
+            web_front_image: `{{ $setting->web_front_image ?? '' }}`,
             web_name: `{{ $setting->web_name ?? '' }}`,
             web_desk: `{{ $setting->web_desk ?? '' }}`,
             web_title: `{{ $setting->web_title ?? '' }}`,

@@ -1,6 +1,6 @@
 @extends('layouts-admin.app')
 @section('title')
-Edit
+Edit Account
 @endsection
 
 
@@ -39,12 +39,12 @@ Edit
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0">Create Source Code</h1>
+                    <h1 class="m-0">Edit Account</h1>
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="#">Home</a></li>
-                        <li class="breadcrumb-item active">Create Source Code</li>
+                        <li class="breadcrumb-item active">Edit Account</li>
                     </ol>
                 </div><!-- /.col -->
             </div><!-- /.row -->
@@ -64,8 +64,8 @@ Edit
                         <form @submit.prevent="sendData" enctype="multipart/form-data">
                             <div class="col-sm-12">
                                 <div class="mb-4">
-                                    <label for="validationCustom01">Name:</label>
-                                    <input v-model="name" class="form-control" type="text" placeholder="Name">
+                                    <label for="validationCustom01">Username:</label>
+                                    <input v-model="username" class="form-control" type="text" placeholder="username">
 
                                 </div>
 
@@ -77,89 +77,18 @@ Edit
 
 
                                 <div class="mb-4">
-                                    <label for="validationCustom01">Role:</label>
-                                    <input v-model="role" class="form-control" type="text" placeholder="ex : Web Developer">
+                                    <label for="validationCustom01">Full Name:</label>
+                                    <input v-model="full_name" class="form-control" type="text" placeholder="ex : Full Name">
 
                                 </div>
 
                                 <div class="mb-4">
-                                    <label for="validationCustom01">last Education:</label>
-                                    <input v-model="last_education" class="form-control" type="text" placeholder="ex :S1 Ilkom Universitas Indonesia">
+                                    <label for="validationCustom01">Password:</label>
+                                    <input v-model="password" class="form-control" type="password" placeholder="ex : Password">
 
                                 </div>
 
-                                <div class="mb-4">
-                                    <label for="validationCustom01">Skills:</label>
-                                    <input v-model="skill" class="form-control" type="text" placeholder="ex :Html, css , Laravel, vue JS">
 
-                                </div>
-
-                                <div class="mb-4">
-
-                                    <label for="validationCustom01">Work Experience:</label>
-                                    <textarea class="form-control" cols="20" rows="3" v-model="work_experience"></textarea>
-                                </div>
-
-                                <div class="mb-4">
-
-                                    <label for="validationCustom01">Hobby:</label>
-                                    <textarea class="form-control" cols="20" rows="3" v-model="hobby"></textarea>
-                                </div>
-
-                                <div class="mb-4">
-
-                                    <label for="validationCustom01">Description:</label>
-                                    <textarea class="form-control" cols="20" rows="3" v-model="description"></textarea>
-                                </div>
-
-
-                                <div class="mb-4">
-                                    <label for="validationCustom01">Gitlab:</label>
-                                    <span class="input-group-text">https://
-                                        <input v-model="gitlab" class="form-control" type="text" placeholder="gitlab.com">
-                                    </span>
-                                </div>
-
-                                <div class="mb-4">
-                                    <label for="validationCustom01">Github:</label>
-                                    <span class="input-group-text">https://
-                                        <input v-model="github" class="form-control" type="text" placeholder="github.com">
-                                    </span>
-                                </div>
-
-                                <div class="mb-4">
-                                    <label for="validationCustom01">Instagram:</label>
-                                    <span class="input-group-text">https://
-                                        <input v-model="instagram" class="form-control" type="text" placeholder="instagram.com">
-                                    </span>
-                                </div>
-
-                                <div class="mb-4">
-                                    <label for="validationCustom01">Facebook:</label>
-                                    <span class="input-group-text">https://
-                                        <input v-model="facebook" class="form-control" type="text" placeholder="facebook.com">
-                                    </span>
-                                </div>
-
-                                <div class="mb-4">
-                                    <label for="validationCustom01">Twitter:</label>
-                                    <span class="input-group-text">https://
-                                        <input v-model="twitter" class="form-control" type="text" placeholder="twitter.com">
-                                    </span>
-                                </div>
-
-
-                                <div class="row">
-                                    <div class="col-12">
-                                        <div class="alert alert-primary">
-                                            <div class="d-flex flex-column">
-                                                <small> File Gambar (.jpeg/png/jpg)</small>
-                                                <br>
-                                                <input type="file" ref="image" class="form-control" accept=".jpeg, .png, .jpg" v-on:change="handleFotoUpload">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
 
                                 <div style="text-align: right;">
                                     <button class="btn btn-primary" type="submit">Save</button>
@@ -188,54 +117,28 @@ Edit
     let app = new Vue({
         el: '#app',
         data: {
-            name: `{{ $about->name ?? '' }}`,
-            email: `{{ $about->email ?? '' }}`,
-            role: `{{ $about->role ?? '' }}`,
-            description: `{{ $about->description ?? '' }}`,
-            hobby: `{{ $about->hobby ?? '' }}`,
-            github: `{{ $about->github ?? '' }}`,
-            gitlab: `{{ $about->gitlab ?? '' }}`,
-            instagram: `{{ $about->instagram ?? '' }}`,
-            facebook: `{{ $about->facebook ?? '' }}`,
-            twitter: `{{ $about->twitter ?? '' }}`,
-            last_education: `{{ $about->last_education ?? '' }}`,
-            work_experience: `{{ $about->work_experience ?? '' }}`,
-            skill: `{{ $about->skill ?? '' }}`,
-            image: '',
+            username: `{{ $user->username ?? '' }}`,
+            full_name: `{{ $user->full_name ?? '' }}`,
+            email: `{{ $user->email  ?? '' }}`,
+            password: `{{ $user->password  ?? '' }}`,
             loading: false,
         },
         methods: {
-            handleFotoUpload: function() {
-                this.image = this.$refs.image.files[0];
-                console.log(this.image['name']);
-            },
             sendData: function() {
                 let vm = this;
 
                 let data = {
-                    image: vm.image,
-                    name: this.name,
+                    username: this.username,
+                    full_name: this.full_name,
                     email: this.email,
-                    role: this.role,
-                    description: this.description,
-                    hobby: this.hobby,
-                    github: this.github,
-                    gitlab: this.gitlab,
-                    instagram: this.instagram,
-                    facebook: this.facebook,
-                    twitter: this.twitter,
-                    last_education: this.last_education,
-                    skill: this.skill,
-                    work_experience: this.work_experience,
-                    image_name: this.image['name']
-
+                    password: this.password,
                 }
 
                 let formData = new FormData();
                 for (var key in data) {
                     formData.append(key, data[key]);
                 }
-                axios.post('/admin/about', formData)
+                axios.post('/admin/setting/update-account', formData)
                     .then(function(response) {
                         vm.loading = false;
                         Swal.fire({
@@ -245,7 +148,7 @@ Edit
                             allowOutsideClick: false,
                         }).then((result) => {
                             if (result.isConfirmed) {
-                                window.location.href = '/admin/about';
+                                window.location.href = '/admin/setting';
                             }
                         })
                         // console.log(response);
@@ -254,7 +157,7 @@ Edit
                         console.log('error', err.response.data)
                         Swal.fire({
                             title: 'Error',
-                            text: `${err.response.data.errors['image']}`,
+                            text: `${err.response.data.errors['password']}`,
                             icon: 'error',
                         })
                     })

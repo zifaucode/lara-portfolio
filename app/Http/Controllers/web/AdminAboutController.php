@@ -79,6 +79,24 @@ class AdminAboutController extends Controller
                 $newAbout = new About();
                 $newAbout->name = $request->name;
                 $newAbout->email = $request->email;
+                $newAbout->role = $request->role;
+                $newAbout->description = $request->description;
+                $newAbout->hobby = $request->hobby;
+                $newAbout->github = $request->github;
+                $newAbout->gitlab = $request->gitlab;
+                $newAbout->instagram = $request->instagram;
+                $newAbout->facebook = $request->facebook;
+                $newAbout->twitter = $request->twitter;
+                $newAbout->last_education = $request->last_education;
+                $newAbout->skill = $request->skill;
+                $newAbout->work_experience = $request->work_experience;
+
+                if ($request->hasFile('image')) {
+                    $newAbout->image = $request->file('image');
+                    $nama_foto =  $newAbout->name . "_" . $request->image_name;
+                    $newAbout->image->move('files/about', $nama_foto);
+                    $newAbout->image = $nama_foto;
+                }
                 $newAbout->save();
                 DB::commit();
                 return response()->json([

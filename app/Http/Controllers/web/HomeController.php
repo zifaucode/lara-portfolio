@@ -17,7 +17,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $blog = Blog::where('active', 1)->with(['users', 'categories'])->get();
+        $blog = Blog::with('categories')->get();
         $project = Project::all();
         // return $blog;
         return view('frontend.home.index', [

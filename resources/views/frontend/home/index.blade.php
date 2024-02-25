@@ -103,25 +103,32 @@ Fauzi Agustian
                 </a>
             </div>
             <div class="row row-custom">
-                <div class="col-lg-3 col-otr " v-for="pj in project" v-if="pj.status.id == 1 || pj.status.id == 2">
+                <div class="col-lg-3 col-otr " v-for="pj in project">
                     <div class="col-inr box-1">
                         <div class="cover-img-otr">
                             <a href="">
-                                <img class="cover-img" :src="'/files/project/' + pj.image" alt="Artwork" />
+                                <template v-if="pj.image !=''">
+                                    <img class="cover-img" :src="'/files/project/' + pj.image" alt="Artwork" />
+                                </template>
+
+                                <template v-else>
+                                    <img class="cover-img" src="/files/project/default-project.png" alt="Artwork" />
+                                </template>
+
 
                             </a>
                             <div class="time-otr">
-                                <span class="heading-SB timer" style="color:black;">@{{pj.status.name}}</span>
+                                <span class="heading-SB timer" style="color:black;">Post: Admin</span>
                             </div>
                             <span class="heart-icon-otr2 heart1">
                                 <i class="ri-heart-line heart-icon2 heart-1"></i>
                             </span>
                         </div>
-                        <a href="" class="art-name heading-MB-Mon">@{{ pj.name }}</a>
+                        <a href="" class="art-name heading-MB-Mon">@{{ pj.name ?? ''}}</a>
                         <div class="bid-main">
                             <p class="bid heading-S">Laravel, VueJs</p>
-                            <p v-if="pj.category_id == 1" class="Price heading-SB">FREE</p>
-                            <p v-if="pj.category_id == 2" class="Price heading-SB">BERBAYAR</p>
+                            <p class="Price heading-SB">@{{ dateOnly(pj.created_at) }}</p>
+
                         </div>
                     </div>
                 </div>
@@ -156,10 +163,17 @@ Fauzi Agustian
                 <div class="col-lg-4 col-md-6 col-otr mb-4" v-for="bl in blog">
                     <div class="col-inr box-1">
                         <a :href="'/blog/detail/' + bl.id" class="img-otr">
-                            <img class="blog-img" :src="'/files/blog/' + bl.image" height="240px" alt="blog" />
+                            <template v-if="bl.image !=''">
+                                <img class="blog-img" :src="'/files/blog/' + bl.image" height="240px" alt="blog" />
+                            </template>
+
+                            <template v-else>
+                                <img class="blog-img" src="/files/blog/default-blog.png" height="240px" alt="blog" />
+                            </template>
+
                         </a>
                         <div class="content-otr">
-                            <p class="date-otr heading-S">• by @{{ bl.users.username }} <span class="date-inr"> • @{{ bl.date }}</span></p>
+                            <p class="date-otr heading-S">• @{{ bl.categories.name ?? ''}} <span class="date-inr"> • @{{ dateOnly(bl.date) }}</span></p>
                             <a :href="'/blog/detail/' + bl.id" class="heading heading-h5">@{{bl.title}}</a>
                             <p class="desc heading-S">
                                 @{{ bl.content | liveSubstr}} <a :href="'/blog/detail/' + bl.id" class="date-otr heading-S">Selengkapnya --></a>
@@ -189,15 +203,22 @@ Fauzi Agustian
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://momentjs.com/downloads/moment.min.js"></script>
+<script src="https://momentjs.com/downloads/moment-with-locales.min.js"></script>
 
 <script>
+    const blog = <?php echo Illuminate\Support\Js::from($blog) ?>;
+    const project = <?php echo Illuminate\Support\Js::from($project) ?>;
     let app = new Vue({
         el: '#app',
         data: {
-            blog: JSON.parse(String.raw `{!! json_encode($blog) !!}`),
-            project: JSON.parse(String.raw `{!! json_encode($project) !!}`),
+            blog,
+            project,
         },
         methods: {
+            dateOnly(value) {
+                return moment(value).format("DD-MM-YYYY");
+            },
 
         },
         filters: {
