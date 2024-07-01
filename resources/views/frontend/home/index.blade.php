@@ -175,8 +175,9 @@ Fauzi Agustian
                         <div class="content-otr">
                             <p class="date-otr heading-S">• @{{ bl.categories.name ?? ''}} <span class="date-inr"> • @{{ dateOnly(bl.date) }}</span></p>
                             <a :href="'/blog/detail/' + bl.id" class="heading heading-h5">@{{bl.title}}</a>
-                            <p class="desc heading-S">
-                                @{{ bl.content | liveSubstr}} <a :href="'/blog/detail/' + bl.id" class="date-otr heading-S">Selengkapnya --></a>
+                            <p v-html="$options.filters.liveSubstr(bl.content, 100)" class="desc heading-S">
+
+                                <a :href="'/blog/detail/' + bl.id" class="date-otr heading-S">Selengkapnya --></a>
                             </p>
                         </div>
                     </div>
@@ -207,6 +208,13 @@ Fauzi Agustian
 <script src="https://momentjs.com/downloads/moment-with-locales.min.js"></script>
 
 <script>
+    Vue.filter('liveSubstr', function(value, length) {
+        const strippedText = value.replace(/<[^>]+>/g, ''); // Remove HTML tags
+        const truncated = strippedText.substring(0, length);
+        const ellipsis = strippedText.length > length ? '...' : '';
+        return `${value.substring(0, value.indexOf(truncated) + truncated.length)}${ellipsis}`;
+    });
+
     const blog = <?php echo Illuminate\Support\Js::from($blog) ?>;
     const project = <?php echo Illuminate\Support\Js::from($project) ?>;
     let app = new Vue({
@@ -221,13 +229,6 @@ Fauzi Agustian
             },
 
         },
-        filters: {
-
-            liveSubstr: function(string) {
-                return string.substring(0, 70) + '...';
-            }
-
-        }
     })
 </script>
 @endsection

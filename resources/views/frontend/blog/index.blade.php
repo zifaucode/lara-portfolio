@@ -63,8 +63,10 @@ Blog - Zifau
                         <div class="content-otr">
                             <p class="date-otr heading-S">• by @{{ bl.users.username }} <span class="date-inr"> • @{{ bl.date }}</span></p>
                             <a :href="'/blog/detail/' + bl.id" class="heading heading-h5">@{{bl.title}}</a>
+                            <p class="desc heading-S" v-html="$options.filters.liveSubstr(bl.content, 100)">
+                            </p>
                             <p class="desc heading-S">
-                                @{{ bl.content | liveSubstr}} <a :href="'/blog/detail/' + bl.id" class="date-otr heading-S">Selengkapnya --></a>
+                                <a :href="'/blog/detail/' + bl.id" class="date-otr heading-S">Selengkapnya --></a>
                             </p>
                         </div>
                     </div>
@@ -92,6 +94,12 @@ Blog - Zifau
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <script>
+    Vue.filter('liveSubstr', function(value, length) {
+        const strippedText = value.replace(/<[^>]+>/g, ''); // Remove HTML tags
+        const truncated = strippedText.substring(0, length);
+        const ellipsis = strippedText.length > length ? '...' : '';
+        return `${value.substring(0, value.indexOf(truncated) + truncated.length)}${ellipsis}`;
+    });
     let app = new Vue({
         el: '#app',
         data: {
@@ -100,13 +108,7 @@ Blog - Zifau
         methods: {
 
         },
-        filters: {
 
-            liveSubstr: function(string) {
-                return string.substring(0, 70) + '...';
-            }
-
-        }
     })
 </script>
 @endsection

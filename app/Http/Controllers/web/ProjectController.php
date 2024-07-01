@@ -18,7 +18,7 @@ class ProjectController extends Controller
      */
     public function index()
     {
-        $project = Project::with(['users', 'status'])->get();
+        $project = Project::all();
         return view('frontend.project.index', [
             'project' => $project,
         ]);
