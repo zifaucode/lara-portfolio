@@ -39,7 +39,7 @@ Source Code
             <div class="col-lg-12 col-activity-otr">
                 <div class="col-activity-inr">
                     <div class="activity box-1" v-for="sc in code">
-                        <a href="/" class="img-otr">
+                        <a href="/code" class="img-otr">
                             <img class="img-art img-fluid" :src="'/files/code/' + sc.image" alt="cover-img">
                         </a>
                         <div class="text-otr">
@@ -51,7 +51,7 @@ Source Code
                                 </a>
                             </div>
                             <br>
-                            <p class="time heading-S">⌚️ @{{sc.date}}</p>
+                            <p class="time heading-S">⌚️ @{{ dateOnly(sc.date) }}</p>
                         </div>
 
 
@@ -84,15 +84,21 @@ Source Code
 <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
+<script src="https://momentjs.com/downloads/moment.min.js"></script>
+<script src="https://momentjs.com/downloads/moment-with-locales.min.js"></script>
+
 
 <script>
+    const code = <?php echo Illuminate\Support\Js::from($code) ?>;
     let app = new Vue({
         el: '#app',
         data: {
-            code: JSON.parse(String.raw `{!! json_encode($code) !!}`),
+            code,
         },
         methods: {
-
+            dateOnly(value) {
+                return moment(value).format("DD-MM-YYYY");
+            },
         }
     })
 </script>
